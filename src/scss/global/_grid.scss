@@ -1,0 +1,28 @@
+.box {
+  max-width: 1340px;
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+
+  &__container {
+    max-width: 1200px;
+    width: 100%;
+    padding: 100px;
+
+    @include respond-to-max($xl) {
+      padding: 70px;
+    }
+
+    @include respond-to-max($lg) {
+      padding: 50px;
+    }
+
+    @include respond-to-max($md) {
+      padding: 30px;
+    }
+
+    @include respond-to-max($sm) {
+      padding: 20px;
+    }
+  }
+}

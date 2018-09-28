@@ -1,0 +1,163 @@
+.shulte-page {
+  background: rgba(#00BCD4, 0.1);
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  @include flex(center, center, column nowrap);
+}
+
+.shulte-board {
+  padding: 75px 50px 100px;
+  max-width: 1100px;
+  height: 100%;
+  //min-height: 75vh;
+  width: 100%;
+  margin: 0 auto;
+
+  @include flex(center, center, column nowrap);
+
+  &__controllers {
+    padding: 20px;
+    align-self: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+
+    @include flex(center, center, row nowrap);
+  }
+}
+
+@keyframes appearing-slightly {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1), translate(-50%, -50%);
+  }
+}
+
+@keyframes disappearing-slightly {
+  0% {
+    opacity: 1;
+    transform: scale(1), translate(-50%, -50%);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+
+.slow-appearing {
+  animation-name: appearing-slightly;
+  animation-duration: 0.7s;
+  animation-fill-mode: forwards;
+  animation-direction: alternate;
+}
+
+.slow-disappearing {
+  animation-name: disappearing-slightly;
+  animation-duration: 0.7s;
+  animation-fill-mode: forwards;
+}
+
+.shulte-tutorial {
+  display: none;
+  opacity: 0;
+  max-width: 700px;
+  width: 100%;
+  position: absolute;
+  background-color: #fbfaf8;
+  padding: 0 30px 30px;
+  box-shadow: 0 0 3px 2px rgba($black, 0.2);
+  border-radius: 1px;
+
+  &__question {
+    @include font(25px, 50px, 300);
+
+    color: #944343;
+    margin-bottom: 20px;
+  }
+
+  &__answer {
+    @include font(14px, 1.2 , 300);
+
+    color: rgba($black, 0.6);
+  }
+}
+
+.shulte-table-wrap {
+  position: relative;
+  box-shadow: 0 0 2px 0 rgba($black, 0.5);
+  max-width: 500px;
+}
+
+.shulte-table {
+  @include flex(flex-start, flex-start, row wrap);
+
+  max-width: 500px;
+  width: 100%;
+  height: 500px;
+
+  &__cell {
+    @include flex(center, center);
+    @include font(1.4em, 1, 400);
+
+    width: 20%;
+    height: 20%;
+    color: $black;
+    background-color: $white;
+    border: 1px solid rgba($black, 0.1);
+
+    &:nth-child(2n) {
+      background-color: #e3e3e3;
+    }
+
+    &:hover {
+      box-shadow: 0 0 2px 0 rgba($black, 0.5);
+      z-index: 2;
+    }
+  }
+}
+
+.shulte-btn {
+  max-width: 120px;
+  min-width: 120px;
+  min-height: 45px;
+  width: 100%;
+  background-color: rgba(#944343, 0.8);
+  color: rgba($white, 0.7);
+  margin-bottom: 20px;
+  margin-right: 10px;
+  transition: all 0.5s;
+  font-family: "Arial", sans-serif;
+
+  &:hover {
+    background-color: #944343;
+    box-shadow: 0 0 5px 1px rgba($black, 0.1);
+    color: $white;
+    border-radius: 4px;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.shulte-btn--main {
+  background-color: rgba(#fcde38, 0.85);
+  color: #944343;
+
+  &:hover {
+    background-color: #fcde38;
+    box-shadow: 0 0 5px 1px rgba($black, 0.1);
+    color: #944343;
+  }
+}
+
+.js-show {
+  display: block;
+}
