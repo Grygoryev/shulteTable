@@ -1,34 +1,54 @@
 'use strict';
 
-var numbers = [],
-    board = $('.shulte-table'),
-    cell = $('.shulte-table__cell');
+var TABLE_SIZE = 5;
+var CELLS = TABLE_SIZE * TABLE_SIZE;
+var BOARD_WRAP = document.getElementById('shulte-wrap');
+var BOARD = document.createElement('div');
+var CELL;
+var NUMBERS = [];
 
-for (var i = 1; i <= 25; i++) {
-  numbers.push(i);
+BOARD.className = 'shulte-table';
+
+function clearTable() {
+    BOARD_WRAP.removeChild(BOARD);
+    NUMBERS = [];
+    console.log(NUMBERS);
+}
+
+for (var i = 1; i <= CELLS; i++ ) {
+    NUMBERS.push(i);
+};
+
+function defineTableSize(size) {
+  TABLE_SIZE = size;
+  generateTable(CELLS);
+  console.log(NUMBERS);
+}
+
+
+function generateTable() {
+    BOARD_WRAP.insertBefore(BOARD, BOARD_WRAP.childNodes[0]);
+
+    for (var i = 1; i <= NUMBERS.length; i++) {
+        CELL = document.createElement('div');
+        CELL.className = "shulte-table__cell";
+        CELL.innerHTML = i;
+        BOARD.appendChild(CELL);
+    }
+
+    refreshNumbers(shuffleNums(NUMBERS));
 }
 
 function shuffleNums(arr) {
-  for (var i = 0; i < 25; i++) {
-    var pos = randomNum(24);
-    var pos2 = randomNum(24); 
+
+  for (var i = 0; i < CELLS; i++) {
+    var pos = randomNum(CELLS - 1);
+    var pos2 = randomNum(CELLS - 1); 
     var x = arr[pos]; 
     arr[pos] = arr[pos2]; 
     arr[pos2] = x; 
-
   }
   return arr;
-}
-
-function addNumbers(arr) {
-  var newCell = document.createElement('div');
-  newCell.className = 'shulte-table__cell';
-
-  for (var i = 0; i < numbers.length; i ++) {
-    board.append(cell.clone().html(arr[i]));
-  }
-
-  cell[0].remove();
 }
 
 function randomNum(max) {
@@ -42,24 +62,5 @@ function refreshNumbers(arr) {
   }
 }
 
-addNumbers(shuffleNums(numbers));
 
-
-//===tutorial popup behaviour=====//
-$(document).ready(function () {
-
-  var shulteTutorialOpenBtn = $('.shulte-board__about-btn'),
-      shulteTutorialCloseBtn = $('.shulte-tutorial__close-btn'),
-      shulteTutorialWindow = $('.shulte-tutorial'),
-      slowAppearing = 'slow-appearing',
-      slowDisappearing = 'slow-disappearing',
-      tutorialAppeared = false;
-
-  shulteTutorialOpenBtn.click(function () {
-    shulteTutorialWindow.toggleClass('js-show');
-  });
-
-  shulteTutorialCloseBtn.click(function () {
-    shulteTutorialWindow.toggleClass('js-show');
-  });
-});
+generateTable(CELLS);
