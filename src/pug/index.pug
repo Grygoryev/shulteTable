@@ -8,21 +8,19 @@ head
   meta(http-equiv='x-ua-compatible', content='ie=edge')
 
 body.shulte-page
-
   .shulte-board
     .shulte-table-wrap#shulte-wrap
       .shulte-board__controllers    
-        button.shulte-btn#shulte3x3(onclick="defineTableSize(3)") 3x3
-        button.shulte-btn#shulte5x5(onclick="defineTableSize(5)") 5x5
-        button.shulte-btn#shulte7x7(onclick="defineTableSize(7)") 7x7
-        button.shulte-btn(onclick="clearTable()") Delete Table
-        button.shulte-btn(onclick="generateTable(CELLS)") Create Table
-        button.shulte-btn.shulte-btn--main(onclick="refreshNumbers(shuffleNums(NUMBERS))") НОВАЯ ТАБЛИЦА
+        button.shulte-btn#shulte3x3(onclick="getNewTable(9)") 3x3
+        button.shulte-btn#shulte5x5(onclick="getNewTable(25)") 5x5
+        button.shulte-btn#shulte7x7(onclick="getNewTable(49)") 7x7
+        button.shulte-btn.shulte-btn--main(onclick="updateTable(getNumbers(25))") НОВАЯ ТАБЛИЦА
         button.shulte-board__about-btn.shulte-btn ТУТОРИАЛ
 
         include ./blocks/shulte-tutorial
         
 
   script(src="js/jquery-lib.js")
+  script(src="js/service.js")
   script(src="js/shulte.js")
   script(src="js/shulteTutorial.js")

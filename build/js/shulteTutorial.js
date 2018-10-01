@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    var shulteTutorialOpenBtn = $('.shulte-board__about-btn'),
+    const shulteTutorialOpenBtn = $('.shulte-board__about-btn'),
         shulteTutorialCloseBtn = $('.shulte-tutorial__close-btn'),
         shulteTutorialWindow = $('.shulte-tutorial'),
         slowAppearing = 'slow-appearing',

@@ -1,66 +1,97 @@
 'use strict';
 
-var TABLE_SIZE = 5;
-var CELLS = TABLE_SIZE * TABLE_SIZE;
-var BOARD_WRAP = document.getElementById('shulte-wrap');
-var BOARD = document.createElement('div');
-var CELL;
-var NUMBERS = [];
+const BOARD_WRAP = document.getElementById('shulte-wrap');
+const BOARD = document.createElement('div');
 
 BOARD.className = 'shulte-table';
 
-function clearTable() {
-    BOARD_WRAP.removeChild(BOARD);
-    NUMBERS = [];
-    console.log(NUMBERS);
-}
+// Виды функций:
+// Те, которые работают с логикой
+// Те, которые отвечают за GUI
+// Вспомогательные (для логики)
 
-for (var i = 1; i <= CELLS; i++ ) {
-    NUMBERS.push(i);
+let NUMBERS = [];
+
+const getNumbers = (cells) => {
+  for (let i = 1; i <= cells; i++) { NUMBERS.push(i) }
+
+  NUMBERS.map( function() {
+    let pos1 = randomNum(cells - 1);
+    let pos2 = randomNum(cells - 1);
+    let temp = NUMBERS[pos1];
+    NUMBERS[pos1] = NUMBERS[pos2];
+    NUMBERS[pos2] = temp;
+  });
+  console.log(NUMBERS);
+  return NUMBERS;
 };
 
-function defineTableSize(size) {
-  TABLE_SIZE = size;
-  generateTable(CELLS);
-  console.log(NUMBERS);
-}
+const getTable = (NUMBERS, CELLS) => {
+  getNumbers(CELLS);
 
+  BOARD_WRAP.insertBefore(BOARD, BOARD_WRAP.childNodes[0]);
 
-function generateTable() {
-    BOARD_WRAP.insertBefore(BOARD, BOARD_WRAP.childNodes[0]);
-
-    for (var i = 1; i <= NUMBERS.length; i++) {
-        CELL = document.createElement('div');
-        CELL.className = "shulte-table__cell";
-        CELL.innerHTML = i;
-        BOARD.appendChild(CELL);
-    }
-
-    refreshNumbers(shuffleNums(NUMBERS));
-}
-
-function shuffleNums(arr) {
-
-  for (var i = 0; i < CELLS; i++) {
-    var pos = randomNum(CELLS - 1);
-    var pos2 = randomNum(CELLS - 1); 
-    var x = arr[pos]; 
-    arr[pos] = arr[pos2]; 
-    arr[pos2] = x; 
+  for (let i = 0; i < CELLS; i++) {
+    let CELL = document.createElement('div');
+    CELL.className = 'shulte-table__cell';
+    CELL.textContent = NUMBERS[i];
+    BOARD.appendChild(CELL);
   }
-  return arr;
-}
+  getStyle(CELLS);
+};
 
-function randomNum(max) {
-  return Math.round(max - ((max * Math.random())));
-}
+const getNewTable = (CELLS) => {
+  console.log(BOARD_WRAP.children);
+  BOARD_WRAP.removeChild(BOARD);
 
-function refreshNumbers(arr) {
-  var cells = document.getElementsByClassName('shulte-table__cell');
-  for (var i = 0; i < cells.length; i++) {
+  getTable(NUMBERS, CELLS);
+};
+
+const updateTable = (arr)  => {
+  const cells = document.getElementsByClassName('shulte-table__cell');
+  for (let i = 0; i < cells.length; i++) {
     cells[i].textContent = arr[i];
   }
-}
+};
 
+const getStyle = (CELLS) => {
+  let cells = document.getElementsByClassName('shulte-table__cell');
 
-generateTable(CELLS);
+  switch(CELLS) {
+    case 9:
+      BOARD.style.width = "300px";
+      for (let i = 0; i < cells.length; i++) {
+        cells[i].style.width = "33.333%";
+        cells[i].style.height = "100px";
+      }
+      break;
+
+    case 25:
+      BOARD.style.width = "500px";
+      for (let i = 0; i < cells.length; i++) {
+        cells[i].style.width = "20%";
+        cells[i].style.height = "100px";
+      }
+      break;
+
+    case 36:
+      BOARD.style.width = "600px";
+      for (let i = 0; i < cells.length; i++) {
+        cells[i].style.width = "16.6666%";
+        cells[i].style.height = "100px";
+      }
+      break;
+
+    case 49:
+      BOARD.style.width = "560px";
+      for (let i = 0; i < cells.length; i++) {
+        cells[i].style.width = "14.278%";
+        cells[i].style.height = "80px";
+      }
+      break;
+    default: 
+      return CELLS;
+  }
+};
+
+getTable(NUMBERS, 25);
